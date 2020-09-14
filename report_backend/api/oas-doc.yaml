@@ -1,0 +1,92 @@
+openapi: 3.0.1
+info:
+  title: JIRA Report API
+  description: 지라 Report
+  contact:
+    email: kk.lim@gsshop.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+tags:
+  - name: ping
+    description: API 테스트용
+  - name: report
+    description: 리포트 조회 API
+servers:
+  - url: /v2
+paths:
+  /ping:
+    get:
+      x-router-controller: ping
+      tags:
+        - ping
+      summary: API가 정상 기동 했는지 확인하기 위하여 호출
+      description: |
+        API의 정상 동작 테스트
+      operationId: ping
+      parameters:
+        - in: query
+          name: name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 동작 성공
+          content:
+            application/json:
+              schema:
+                type: object
+  /report:
+    get:
+      x-router-controller: reportController
+      tags:
+        - report
+      summary: 리포트 목록을 가져온다.
+      operationId: getReport
+      parameters:
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 리포트 목록
+          content:
+            application/json:
+              schema:
+                type: array
+components:
+  schemas:
+    HelloWorldResponse:
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponse:
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+    response:
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          description: '처리 성공 여부 ex) OK, ERROR'
+        message:
+          type: string
+          description: 오류 사유
