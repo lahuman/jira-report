@@ -102,6 +102,8 @@ $ docker build -t jira-report:1.0 .
 $ docker run -p 8888:80 --rm jira-report:1.0
 ```
 
+[Dockerfile 더 자세히 알아보기](https://lahuman.github.io/reactjs-dockerfile/)
+
 ---
 
 ## License
