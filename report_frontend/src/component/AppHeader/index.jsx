@@ -20,7 +20,7 @@ export default () => {
   <Toolbar>
     <AssignmentIcon className={classes.icon} />
     <Typography variant="h6" color="inherit" noWrap>
-      Jira Report Page
+      Jira Work log Report
     </Typography>
   </Toolbar>
 </AppBar>
