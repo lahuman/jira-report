@@ -159,11 +159,9 @@ export default ({ dateRangeRef, data, searchName }) => {
                       <b>{l.summary}</b><br />
                       <pre style={{ whiteSpace: "pre-wrap" }}>{l.comment}</pre>
                     </Typography>
-                    { /*
-                      <Typography variant="caption" display="block" gutterBottom>
-                        {moment(l.started).format("YYYY-MM-DD HH:mm")}
-                      </Typography>
-                    */ }
+                    <Typography variant="caption" display="block" gutterBottom>
+                      {moment(l.started).format("YYYY-MM-DD HH:mm")}
+                    </Typography>
                   </CardContent>
                   <CardActions style={{ justifyContent: "space-between" }}>
                     <Button size="small">
