@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './ReportTable.css';
 import {
   Grid,
   Button,
@@ -22,7 +22,7 @@ import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   tableRoot: {
-    width: "90vw",
+    width: "97vw",
     // marginTop: theme.spacing.unit * 3,
     maxHeight: "80vh",
   },
@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 700,
     tableLayout: "fixed",
     position: "relative",
-    borderCollapse: "collapse"
+    bordercollapse: 'separate', /* Don't collapse */
+    borderSpacing: 0,
   },
   card: {
     height: '100%',
@@ -43,18 +44,18 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
-    paddingBottom: "2px",
   },
-  tableRightBorder : { 
-    borderWidth: 0,
+  tableRightBorder: {
     borderWidth: 1,
-    borderStyle: 'solid'
+    borderStyle: 'solid',
+    borderColor: 'transparent #f5f5f5 transparent #f5f5f5'
   }, // or borderTop: '1px solid red'
-  tableFixed : {
-    verticalAlign: "top", position: "sticky",
+  tableFixed: {
+    verticalAlign: "top", 
+    position: "sticky",
     top: 50, /* Don't forget this, required for the stickiness */
     background: "#f5f5f5",
-    color: "black"
+    color: "black",
   }
 }));
 
@@ -67,7 +68,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export default ({ dateRangeRef, data, maxMemberIdx, searchName }) => {
+export default ({ dateRangeRef, data, searchName }) => {
   const classes = useStyles();
 
   const getDateList = () => {
@@ -127,23 +128,30 @@ export default ({ dateRangeRef, data, maxMemberIdx, searchName }) => {
         </StyledTableRow>
       </TableHead>
       <TableBody>
-        {data && data[maxMemberIdx.current] && Object.keys(data[maxMemberIdx.current]).filter(key => searchName === "" ? true : data[maxMemberIdx.current][key][0].displayName.includes(searchName)).map(key => data[maxMemberIdx.current][key] && <React.Fragment><StyledTableRow key={key} >
+        {data && data[0] && Object.keys(data[0]).sort((a, b) => {
+          const x = a.toLowerCase();
+          const y = b.toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
+        }).filter(key => searchName === "" ? true : data[0][key][0].displayName.includes(searchName)).map(key => data[0][key] && <React.Fragment><StyledTableRow key={key} style={{
+        }}>
           <TableCell component="th" scope="row" style={{
             verticalAlign: "top", position: "sticky",
             top: 50, /* Don't forget this, required for the stickiness */
             background: "white",
-            color: "black"
+            color: "black",
+            border: '0.1rem solid',
+            borderColor: '#B6B6B4 transparent transparent  transparent'
           }}>
             <Typography gutterBottom variant="h6" component="h4" align="center">
-              {data[maxMemberIdx.current][key][0].displayName}
+              {data[0][key][0] && data[0][key][0].displayName}
             </Typography>
           </TableCell>
 
-          {data && data.map((d, idx) => (<TableCell key={idx} className={classes.tableRightBorder} style={{ verticalAlign: "top" }}>
-            {d[key] && [].concat(d[key]).sort((a, b) => moment(a.started).valueOf() - moment(b.started).valueOf()).map(l => (
+          {data && data.map((d, idx) => (<TableCell key={idx} className={classes.tableRightBorder} style={{ verticalAlign: "top", border: '0.1rem solid',
+          borderColor: '#B6B6B4 transparent transparent  transparent' }}>
+            {d[key] && [].concat(d[key]).sort((a, b) => moment(a.started).valueOf() - moment(b.started).valueOf()).map(l => l.started && (
               <Grid item key={l.emailAddress + l.updated} style={{
-                //  height: 180,
-                marginBottom: "0.3rem"
+                marginBottom: "10px"
               }}>
                 <Card className={classes.card} >
                   <CardContent className={classes.cardContent}>
@@ -151,18 +159,17 @@ export default ({ dateRangeRef, data, maxMemberIdx, searchName }) => {
                       <b>{l.summary}</b><br />
                       <pre style={{ whiteSpace: "pre-wrap" }}>{l.comment}</pre>
                     </Typography>
-                    <Typography variant="caption" display="block" gutterBottom>
-                      {moment(l.started).format("YYYY-MM-DD HH:mm")}
-                    </Typography>
+                    { /*
+                      <Typography variant="caption" display="block" gutterBottom>
+                        {moment(l.started).format("YYYY-MM-DD HH:mm")}
+                      </Typography>
+                    */ }
                   </CardContent>
-                  <CardActions>
+                  <CardActions style={{ justifyContent: "space-between" }}>
                     <Button size="small">
                       <a href={process.env.REACT_APP_API_JIRA_BROWSE + l.key} target="_blank" rel="noopener noreferrer">{l.key}</a>
                     </Button>
-                    <Button size="small">
-                      <a href={process.env.REACT_APP_API_JIRA_BROWSE + l.key} target="_blank" rel="noopener noreferrer" style={{ color: 'red', fontWeight: 'bold' }}>{l.timeSpent}</a>
-                    </Button>
-
+                    <span style={{color: 'red'}}>{l.timeSpent}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   </CardActions>
                 </Card>
               </Grid>
@@ -170,12 +177,41 @@ export default ({ dateRangeRef, data, maxMemberIdx, searchName }) => {
           </TableCell>)
           )}
         </StyledTableRow>
-          <StyledTableRow>
+          <StyledTableRow style={{ 
+          }}>
             <TableCell style={{ width: "100px" }} align="center" className={classes.tableFixed}>
-              <Typography gutterBottom variant="subtitle2" align="center">총 SUM</Typography>
+              <Typography gutterBottom variant="subtitle2" align="center">
+                {data && data.reduce((adata, cdata, currentIndex, array) => {
+                  const sumVal = cdata[key] && cdata[key].reduce((acc, cur) => {
+                    if (!cur.timeSpent) return acc;
+                    const day = cur.timeSpent.match(/(\d{1,2})d/);
+                    const hour = cur.timeSpent.match(/(\d{1,2})h/);
+                    const min = cur.timeSpent.match(/(\d{1,2})m/);
+                    if (day && day.length > 1) {
+                      acc += parseInt(day[1]) * 8 * 60;
+                    }
+                    if (hour && hour.length > 1) {
+                      acc += parseInt(hour[1]) * 60;
+                    }
+                    if (min && min.length > 1) {
+                      acc += parseInt(min[1]);
+                    }
+                    return acc;
+                  }, 0) || 0;
+
+                  if (currentIndex + 1 === array.length) {
+                    const totalHour = Math.floor(adata / 60);
+                    const totalMin = adata % 60;
+                    return `${totalHour === 0 ? "" : `${totalHour}시간`} ${totalMin === 0 ? "" : `${totalMin}분`}`;
+                  }
+                  return adata + sumVal;
+                }
+                  , 0)}
+              </Typography>
             </TableCell>
             {data && data.map((d, idx) => (<TableCell key={idx} align="center">
               {d[key] && d[key].reduce((acc, cur, currentIndex, array) => {
+                if (!cur.timeSpent) return acc;
                 const day = cur.timeSpent.match(/(\d{1,2})d/);
                 const hour = cur.timeSpent.match(/(\d{1,2})h/);
                 const min = cur.timeSpent.match(/(\d{1,2})m/);

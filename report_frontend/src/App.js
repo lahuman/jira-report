@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   CssBaseline,
-  Container,
+  Grid,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(8),
     marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
 }));
-
 
 export default function Report() {
   const classes = useStyles();
@@ -41,10 +41,12 @@ export default function Report() {
       <main>
         {/* Hero unit */}
         <SearchBar dateRange={dateRange}  isLoading={isLoading} setIsLoading={setIsLoading} dateRangeRef={dateRangeRef} maxMemberIdx={maxMemberIdx} setDateRange={setDateRange} searchName={searchName} setSearchName={setSearchName} setData={setData}  />
-        <Container className={classes.cardGrid} maxWidth="lg">
-          {/* End hero unit */}
-          <ReportTable dateRangeRef={dateRangeRef} data={data} maxMemberIdx={maxMemberIdx} searchName={searchName} />
-        </Container>
+        <Grid container spacing={40} className={classes.cardGrid} >
+          <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
+            {/* End hero unit */}
+            <ReportTable dateRangeRef={dateRangeRef} data={data} maxMemberIdx={maxMemberIdx} searchName={searchName} />
+          </Grid>
+        </Grid>
       </main>
       {/* Footer */}
       <AppFooter />
