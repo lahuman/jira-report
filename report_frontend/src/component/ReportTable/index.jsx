@@ -68,7 +68,8 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export default ({ dateRangeRef, data, searchName }) => {
+export default ({ dateRangeRef, data, searchName, maxMemberIdx}) => {
+
   const classes = useStyles();
 
   const getDateList = () => {
@@ -128,11 +129,11 @@ export default ({ dateRangeRef, data, searchName }) => {
         </StyledTableRow>
       </TableHead>
       <TableBody>
-        {data && data[0] && Object.keys(data[0]).sort((a, b) => {
+        {data && data[maxMemberIdx.current] && Object.keys(data[maxMemberIdx.current]).sort((a, b) => {
           const x = a.toLowerCase();
           const y = b.toLowerCase();
           return x < y ? -1 : x > y ? 1 : 0;
-        }).filter(key => searchName === "" ? true : data[0][key][0].displayName.includes(searchName)).map(key => data[0][key] && <React.Fragment><StyledTableRow key={key} style={{
+        }).filter(key => searchName === "" ? true : data[maxMemberIdx.current][key][0].displayName.includes(searchName)).map(key => data[maxMemberIdx.current][key] && <React.Fragment><StyledTableRow key={key} style={{
         }}>
           <TableCell component="th" scope="row" style={{
             verticalAlign: "top", position: "sticky",
@@ -143,7 +144,7 @@ export default ({ dateRangeRef, data, searchName }) => {
             borderColor: '#B6B6B4 transparent transparent  transparent'
           }}>
             <Typography gutterBottom variant="h6" component="h4" align="center">
-              {data[0][key][0] && data[0][key][0].displayName}
+              {data[maxMemberIdx.current][key][0] && data[maxMemberIdx.current][key][0].displayName}
             </Typography>
           </TableCell>
 
