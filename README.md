@@ -5,7 +5,7 @@
 
 ***Screen***
 
-![](./snapshot.png)
+![](./snapshot_v1.1.png)
 
 
 ## Table of Contents 
@@ -15,6 +15,7 @@
 - [Installation](#installation)
 - [JiraCloud](#jiracloud)
 - [Dockerfile](#dockerfile)
+- [Version](#version)
 - [License](#license)
 
 
@@ -103,6 +104,19 @@ $ docker run -p 8888:80 --rm jira-report:1.0
 ```
 
 [Dockerfile 더 자세히 알아보기](https://lahuman.github.io/reactjs-dockerfile/)
+
+---
+
+## Version
+
+- v1.1 : 화면 레이아웃에 대한 조절 진행
+    + 테이블 화면에 가득 차도록 변경
+    + 이름 밑에 총 시간 표기
+    + 폰트 사이즈 수정
+    + 버튼 위치 조정
+    + 범위에 대한 아래 라인 추가
+
+- v1.0 : JIRA Cloud 와 연동하여 Work log 내역을 표기 하는 기능 개발
 
 ---
 
