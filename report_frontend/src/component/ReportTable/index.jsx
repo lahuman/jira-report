@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
+    paddingBottom: 0,
   },
   tableRightBorder: {
     borderWidth: 1,
