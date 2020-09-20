@@ -66,7 +66,7 @@ REACT_APP_API_JIRA_BROWSE=https://lahuman.atlassian.net/browse/ #jira의 browse 
 > 실행 
 
 ```
-$ npm instlal
+$ npm install
 # npm run start
 ```
 
