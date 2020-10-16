@@ -47,6 +47,7 @@ const getReportByDate = async ({ reportDate }) => {
         issueId: w.issueId,
         summary: issue.summary,
         key: issue.key,
+        worklogId: w.id
       }
     });
     return [...acc, ...w];

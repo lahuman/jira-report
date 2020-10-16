@@ -152,13 +152,13 @@ export default ({ dateRangeRef, data, searchName, maxMemberIdx}) => {
           {data && data.map((d, idx) => (<TableCell key={idx} className={classes.tableRightBorder} style={{ verticalAlign: "top", border: '0.1rem solid',
           borderColor: '#B6B6B4 transparent transparent  transparent' }}>
             {d[key] && [].concat(d[key]).sort((a, b) => moment(a.started).valueOf() - moment(b.started).valueOf()).map(l => l.started && (
-              <Grid item key={l.emailAddress + l.updated} style={{
+              <Grid item key={l.worklogId} style={{
                 marginBottom: "10px"
               }}>
                 <Card className={classes.card} >
                   <CardContent className={classes.cardContent}>
                     <Typography variant="body2" gutterBottom>
-                      <b>{l.summary}</b><br />
+                      <a href={`${process.env.REACT_APP_API_JIRA_BROWSE}${l.key}?focusedWorklogId=${l.worklogId}`} target="_blank" rel="noopener noreferrer"><b>{l.summary}</b></a><br />
                       <pre style={{ whiteSpace: "pre-wrap" }}>{l.comment}</pre>
                     </Typography>
                     <Typography variant="caption" display="block" gutterBottom>
