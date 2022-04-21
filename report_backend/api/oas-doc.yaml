@@ -16,6 +16,57 @@ tags:
 servers:
   - url: /v2
 paths:
+  /login:
+    post:
+      x-router-controller: login
+      tags:
+        - login
+      summary: 로그인 시도
+      description: |
+        로그인 처리 후 session에 값 저장
+      operationId: login
+      requestBody:
+        x-name: body
+        description: id/pw 정보 제공
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: 로그인 성공
+          content:
+            application/json:
+              schema:
+                type: object
+        "403":
+          description: 로그인 실패
+          content:
+            application/json:
+              schema:
+                type: object
+  /loginCheck:
+    get:
+      x-router-controller: login
+      tags:
+        - login
+      summary: 로그인 정보 확인
+      description: |
+        session에 값 저장 확인
+      operationId: loginCheck
+      responses:
+        "200":
+          description: 로그인 성공
+          content:
+            application/json:
+              schema:
+                type: object
+        "403":
+          description: 로그인 실패
+          content:
+            application/json:
+              schema:
+                type: object
   /ping:
     get:
       x-router-controller: ping
