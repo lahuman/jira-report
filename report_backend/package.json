@@ -13,16 +13,16 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.16.3",
-    "express-session": "^1.17.1",
-    "helmet": "^4.1.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "helmet": "^5.0.2",
     "https": "^1.0.0",
-    "js-yaml": "^3.3.0",
-    "moment": "^2.27.0",
-    "node-fetch": "^2.6.1",
-    "oas-tools": "^2.1.4"
+    "js-yaml": "^4.1.0",
+    "moment": "^2.29.3",
+    "node-fetch": "^3.2.3",
+    "oas-tools": "^2.2.1"
   }
 }

@@ -36,7 +36,7 @@ app.use(express.json());
 
 
 const spec = fs.readFileSync(path.join(__dirname, '/api/oas-doc.yaml'), 'utf8');
-const oasDoc = jsyaml.safeLoad(spec);
+const oasDoc = jsyaml.load(spec);
 
 const options_object = {
   controllers: path.join(__dirname, './controllers'),

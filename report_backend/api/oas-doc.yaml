@@ -3,10 +3,10 @@ info:
   title: JIRA Report API
   description: 지라 Report
   contact:
-    email: kk.lim@gsshop.com
+    email: lahuman@daum.net
   license:
     name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
   version: 1.0.0
 tags:
   - name: ping
@@ -32,7 +32,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: 동작 성공
           content:
             application/json:
@@ -57,7 +57,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: 리포트 목록
           content:
             application/json:
@@ -86,7 +86,7 @@ components:
       properties:
         status:
           type: string
-          description: '처리 성공 여부 ex) OK, ERROR'
+          description: "처리 성공 여부 ex) OK, ERROR"
         message:
           type: string
           description: 오류 사유

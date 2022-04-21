@@ -1,6 +1,6 @@
-'use strict'
 
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
 
 const callJiraAPI = async ({ url, method, body }) => {
   const res = await fetch(url, {

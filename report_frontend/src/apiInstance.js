@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 
 export default async ({ url, method, body }) => {
+  console.log(process.env.REACT_APP_API_URL)
   const res = await fetch(`${process.env.REACT_APP_API_URL}${url}`, {
     method,
     body: body && JSON.stringify(body),
