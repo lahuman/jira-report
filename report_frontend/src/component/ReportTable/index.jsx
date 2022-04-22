@@ -182,7 +182,7 @@ export default ({ dateRangeRef, data, searchName, userInfo}) => {
             <TableCell style={{ width: "100px" }} align="center" className={classes.tableFixed}>
               <Typography gutterBottom variant="subtitle2" align="center">
                 {data && data.reduce((adata, cdata, currentIndex, array) => {
-                  const sumVal = cdata[key] && cdata[key].reduce((acc, cur) => {
+                  const sumVal = cdata[`${key.id}&%${key.name}`] && cdata[`${key.id}&%${key.name}`].reduce((acc, cur) => {
                     if (!cur.timeSpent) return acc;
                     const day = cur.timeSpent.match(/(\d{1,2})d/);
                     const hour = cur.timeSpent.match(/(\d{1,2})h/);
@@ -210,7 +210,7 @@ export default ({ dateRangeRef, data, searchName, userInfo}) => {
               </Typography>
             </TableCell>
             {data && data.map((d, idx) => (<TableCell key={idx} align="center">
-              {d[key] && d[key].reduce((acc, cur, currentIndex, array) => {
+              {d[`${key.id}&%${key.name}`] && d[`${key.id}&%${key.name}`].reduce((acc, cur, currentIndex, array) => {
                 if (!cur.timeSpent) return acc;
                 const day = cur.timeSpent.match(/(\d{1,2})d/);
                 const hour = cur.timeSpent.match(/(\d{1,2})h/);
