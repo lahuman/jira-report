@@ -9,7 +9,7 @@ import SearchBar from '../SearchBar';
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
       paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(8),
+      paddingBottom: theme.spacing(1),
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
     },

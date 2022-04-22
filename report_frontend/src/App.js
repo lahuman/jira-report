@@ -8,8 +8,6 @@ import Loadding from './component/Loadding';
 import Login from './component/Login';
 import ReportUI from './component/Report';
 
-
-
 export default function Report() {
  
   const [isLoading, setIsLoading] = React.useState(false);
