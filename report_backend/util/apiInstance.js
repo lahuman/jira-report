@@ -17,9 +17,6 @@ const callJiraAPI = async ({ url, method, body }) => {
   return jsonResult;
 }
 
-
-
-
 module.exports = {
   callJiraAPI
 }

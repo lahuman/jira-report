@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ dateRange, setDateRange, searchName, setSearchName, isLoading, setIsLoading, maxMemberIdx, dateRangeRef, setData }) => {
+export default ({ dateRange, setDateRange, searchName, setSearchName, isLoading, setIsLoading, setUserInfo, dateRangeRef, setData }) => {
   const classes = useStyles();
   const dateRangeInputRef = React.useRef(null);
   const handleDateRangeClick = (e) => {
@@ -40,18 +40,12 @@ export default ({ dateRange, setDateRange, searchName, setSearchName, isLoading,
       const data = await apiInstance({ url: `/v2/report?startDate=${start.format('YYYY-MM-DD')}&endDate=${end.format('YYYY-MM-DD')}`, method: 'get' });
       setData(data);
 
-      // 최대 사용자를 가진 배열 위치 확인
-      let maxLen = 0;
-      data.forEach((d, idx) => {
-        const len = Object.keys(d).length;
-        if (len > maxLen) {
-          maxLen = len;
-          maxMemberIdx.current = idx;
-        }
-      });
-      if(!data[maxMemberIdx.current]){
-        maxMemberIdx.current = 0;
-      }
+      // 최대 사용자를 가진 배열 생성
+      setUserInfo([...new Set(data.map(d=> Object.keys(d)).filter(d => d.length > 0).reduce((acc, cur) => acc.concat(cur), []))].map(d => {
+        const [id, name] = d.split("&%");
+        return {id, name};
+      }));
+
     } catch (e) {
       // alert(e);
     } finally {

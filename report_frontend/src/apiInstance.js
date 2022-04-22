@@ -7,11 +7,15 @@ export default async ({ url, method, body }) => {
     body: body && JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
-    }
+    },
+    credentials: 'include'
   });
   const response = await res.json();
   if(res.status.toString().indexOf("20") === 0) {
     return response;
+  } else  if(res.status === 403) {
+    alert(response.message);
+    window.location.href = '/login';
   }else{
     alert(response.message);
     return undefined;

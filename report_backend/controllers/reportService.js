@@ -41,7 +41,7 @@ const getReportByDate = async ({ reportDate }) => {
         started: w.started,
         updated: w.updated,
         comment: w.comment,
-        emailAddress: w.author.emailAddress,
+        accountId: `${w.author.accountId}&%${w.author.displayName}`,
         displayName: w.author.displayName,
         timeSpent: w.timeSpent,
         issueId: w.issueId,
@@ -52,7 +52,7 @@ const getReportByDate = async ({ reportDate }) => {
     });
     return [...acc, ...w];
   }, []) || [];
-  const groupByEmail = groupBy(result, "emailAddress")
+  const groupByEmail = groupBy(result, "accountId")
   return groupByEmail;
 }
 

@@ -69,7 +69,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export default ({ dateRangeRef, data, searchName, maxMemberIdx}) => {
+export default ({ dateRangeRef, data, searchName, userInfo}) => {
 
   const classes = useStyles();
 
@@ -130,11 +130,11 @@ export default ({ dateRangeRef, data, searchName, maxMemberIdx}) => {
         </StyledTableRow>
       </TableHead>
       <TableBody>
-        {data && data[maxMemberIdx.current] && Object.keys(data[maxMemberIdx.current]).sort((a, b) => {
-          const x = a.toLowerCase();
-          const y = b.toLowerCase();
+        {userInfo && userInfo.sort((a, b) => {
+          const x = a.name.toLowerCase();
+          const y = b.name.toLowerCase();
           return x < y ? -1 : x > y ? 1 : 0;
-        }).filter(key => searchName === "" ? true : data[maxMemberIdx.current][key][0].displayName.includes(searchName)).map(key => data[maxMemberIdx.current][key] && <React.Fragment><StyledTableRow key={key} style={{
+        }).filter(key => searchName === "" ? true : key.name.includes(searchName)).map((key) => <React.Fragment ><StyledTableRow style={{
         }}>
           <TableCell component="th" scope="row" style={{
             verticalAlign: "top", position: "sticky",
@@ -145,13 +145,13 @@ export default ({ dateRangeRef, data, searchName, maxMemberIdx}) => {
             borderColor: '#B6B6B4 transparent transparent  transparent'
           }}>
             <Typography gutterBottom variant="h6" component="h4" align="center">
-              {data[maxMemberIdx.current][key][0] && data[maxMemberIdx.current][key][0].displayName}
+              {key && key.name}
             </Typography>
           </TableCell>
-
+          
           {data && data.map((d, idx) => (<TableCell key={idx} className={classes.tableRightBorder} style={{ verticalAlign: "top", border: '0.1rem solid',
           borderColor: '#B6B6B4 transparent transparent  transparent' }}>
-            {d[key] && [].concat(d[key]).sort((a, b) => moment(a.started).valueOf() - moment(b.started).valueOf()).map(l => l.started && (
+            {d[`${key.id}&%${key.name}`] && [].concat(d[`${key.id}&%${key.name}`]).sort((a, b) => moment(a.started).valueOf() - moment(b.started).valueOf()).map(l => l.started && (
               <Grid item key={l.worklogId} style={{
                 marginBottom: "10px"
               }}>

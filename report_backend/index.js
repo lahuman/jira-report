@@ -15,7 +15,10 @@ const jsyaml = require('js-yaml');
 const serverPort = 8080;
 
 
-app.use(require('cors')());
+app.use(require('cors')({
+  origin : true,
+  credentials : true
+}));
 
 app.use(
   require("express-session")({
