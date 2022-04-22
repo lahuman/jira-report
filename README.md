@@ -2,9 +2,11 @@
 
 > 지라에서 작성한 work log를 아래 그림과 같이 날짜 기준으로 표기해 줍니다.
 
-**_Screen_**
-
 ![](./snapshot_v1.1.png)
+
+> 로그인 화면이 추가 되었습니다. (2022.04.22)
+
+![](./snapshot_login.png)
 
 ## Table of Contents
 
