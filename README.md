@@ -105,9 +105,12 @@ $ docker run -p 8888:80 --rm jira-report:1.0
 
 ## Version
 
+- v1.4 : 타임존 추가
+  - 타임존 문제로 조회 오류가 발생 
+  - 타임존을 ```.env```로 관리
+  
 - v1.3(2022.04.22) : Login 화면 추가, Bug 수정
-
-  - backend `.env` 에 ID/PW 항목을 추가하여 로그인 처리
+  - backend ```.env``` 에 ID/PW 항목을 추가하여 로그인 처리
   - LOGIN 화면 추가
   - 사용자 누락 버그 수정
   - backend 모듈 버젼 업데이트
