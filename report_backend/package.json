@@ -22,6 +22,7 @@
     "https": "^1.0.0",
     "js-yaml": "^4.1.0",
     "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
     "node-fetch": "^3.2.3",
     "oas-tools": "^2.2.1"
   }

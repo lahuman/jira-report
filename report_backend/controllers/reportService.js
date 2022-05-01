@@ -1,6 +1,8 @@
 'use strict'
 const { callJiraAPI } = require('../util/apiInstance');
+require('moment-timezone');
 const moment = require('moment');
+moment.tz.setDefault(process.env.TIME_ZONE);
 
 const makeDateList = ({ start, end }) => {
   let tmpDate = moment(start);

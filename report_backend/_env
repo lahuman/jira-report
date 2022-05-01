@@ -1,6 +1,7 @@
 JIRA_HOST=https://lahuman.atlassian.net
 JIRA_ID=
 TOKEN_KEY=
+TIME_ZONE=Asia/Seoul
 
 ID=
 PW=
